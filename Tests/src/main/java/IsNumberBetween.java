@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
  */
 public class IsNumberBetween {
     public static void main(String[] args) {
-      String input ="Numbers: 5248,3475,10000,4999";
+      String input ="Numbers: 2000,5248,3475,10000,4999";
         System.out.println(isNumberBetween(input));
     }
 
