@@ -1,0 +1,32 @@
+String inpit - list of numbers = [2000,10000] beginning from words "Numbers: " or without them, separated by commas.
+
+1.
+input = "Numbers: 4585,7893,2000,4567,10000,8235,3543,4567,9999,2001"
+output = true
+
+2.
+input = "4565,7893,2000,45687,10000,8235,3543,4567,9999,2001"
+output = true
+
+3.
+input = "2000"
+output = true
+
+4.
+input = "10000"
+output = true
+5.
+input = "2000,1999,7893,5468"
+output = false
+
+6.
+input = "7858 4568.3463,5678;10000"
+output = false
+
+7.
+input = "2000,2001,2002,...,10000"
+outpu = true
+
+8.
+input = "10001"
+output = false
