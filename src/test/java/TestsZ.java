@@ -22,21 +22,17 @@ import MyCode.Validator;
  *
  * Created by User on 04.07.2017.
  */
-public class TestsG {
+public class TestsZ {
     Validator myValidator;
 
     @DataProvider(name = "TestData")
     public Object[][] createData(){
         return new Object[][] {
-                {"email1@gmail.com,email2@gmail.com, email3@gmail.com", Boolean.TRUE},
-                {"email@gmail.com", Boolean.TRUE},
-                {"email@gmail.com,", Boolean.TRUE},
-                {"EMAIL@gmail.com", Boolean.TRUE},
-                {" ", Boolean.FALSE},
-                {"email@ukr.net", Boolean.FALSE},
-                {"emailgmail.com ", Boolean.FALSE},
-                {"", Boolean.FALSE},
-                {"email1@gmail.com email2@gmail.com", Boolean.FALSE}
+                 {"email1@gmail.com,email2@ukr.net", "email1@gmail.com,email2@gmail.com"},
+                 {"email@gmail.com,email2@ukr.net,email3@yandex.ru", "email@gmail.com,email2@gmail.com,email3@gmail.com"},
+                 {"email@yandex.ru,email2@yahoo.com,email3@ukr.net,email4@mail.ru", "email@gmail.com,email2@gmail.com,email3@gmail.com,email4@gmail.com"},
+                 {"email@YAHOO.com", "email@gmail.com"},
+                 {"email1@ukr.net,email2@ukr.net,email3@ukr.net", "email1@gmail.com,email2@gmail.com,email3@gmail.com"}
 
         };
     }
@@ -46,10 +42,10 @@ public class TestsG {
         myValidator = new Validator();
     }
 
-    @Test(dataProvider = "TestData", description = "Test for Emails Validation")
-     void TestsIsGmail(String testString, Boolean expectedResult){
+    @Test(dataProvider = "TestData", description = "Test for changing all nongmail-emails")
+    void TestsIsGmail(String testString, String expectedResult){
         System.out.println(testString);
-        Assert.assertEquals( (Boolean) myValidator.emails(testString), expectedResult,"Bad input " + testString);
+        Assert.assertEquals( (String) myValidator.zamena(testString), expectedResult,"Bad input " + testString);
     }
     @AfterMethod
     void afterM(ITestResult testResult){

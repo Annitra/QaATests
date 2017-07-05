@@ -1,8 +1,10 @@
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import  MyCode.RegexTest;
+import MyCode.Validator;
 /**
  * Created by User on 01.07.2017.
  */
@@ -24,7 +26,7 @@ import  MyCode.RegexTest;
           *          */
 
 public class Tests {
-
+    Validator myValidator;
 
     @DataProvider(name = "TestData")
     public Object[][] createData(){
@@ -35,20 +37,31 @@ public class Tests {
                 {"6000.10", Boolean.TRUE}
         };
     }
+    @BeforeTest
+    void setUp(){
+        System.out.println("Created Object");
+        myValidator = new Validator();
+    }
 
-    @Test(dataProvider = "TestData")
-    public static void Positive(String testString, Boolean expectedResult){
+    @Test(dataProvider = "TestData", description = "Test for Numbers Validation")
+    void Positive(String testString, Boolean expectedResult){
         System.out.println(testString);
-        Assert.assertEquals( (Boolean) RegexTest.isNumberBetween(testString), expectedResult,"Bad input " + testString);
+        Assert.assertEquals( (Boolean) myValidator.numbers(testString), expectedResult,"Bad input " + testString);
+    }
+
+    @AfterMethod
+    void afterM(ITestResult testResult){
+        System.out.println(testResult.isSuccess());
+        System.out.println(testResult.getMethod().getDescription());
     }
  //   @Parameters({"input"}) //nazvanij iz xml-file
    /* @Test
     public static void Test1(String testString) {
-        Assert.assertTrue(RegexTest.isNumberBetween(testString),"Bad input "+testString); // assert proverit chto vernet True
+        Assert.assertTrue(Validator.isNumberBetween(testString),"Bad input "+testString); // assert proverit chto vernet True
     }*/
     /*@Test
     public static void Test2() {
-        Assert.assertTrue(RegexTest.isNumberBetween("10000"));
+        Assert.assertTrue(Validator.isNumberBetween("10000"));
     }
    /* @Test
     public static void Test3() {
@@ -73,7 +86,7 @@ public class Tests {
     /*
     @Test
     public static void Test8() {
-        Assert.assertFalse(RegexTest.isNumberBetween("6000,1"));
+        Assert.assertFalse(Validator.isNumberBetween("6000,1"));
     }
    /* @Test
     public static void Test9() {
@@ -87,5 +100,5 @@ public class Tests {
     public static void Test11() {
         IsNumberBetween.isNumberBetween("1999");
     }*/
-    
+
 }
